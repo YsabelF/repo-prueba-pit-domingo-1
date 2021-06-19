@@ -18,19 +18,20 @@ import com.empresa.entity.Alumno;
 import com.empresa.service.AlumnoService;
 
 import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.java.Log;
 
 @CommonsLog
 @RestController
 @RequestMapping("/rest/alumno")
 public class AlumnoController {
-	
+	//private Logger log = Logger.getLogger(AlumnoController.class.getName());
 
 	@Autowired
 	private AlumnoService service;
 
 	@GetMapping
 	public ResponseEntity<List<Alumno>> lista(){
-		log.info(">>> lista ");
+	log.info(">>> lista ");
 		return ResponseEntity.ok(service.listaAlumno());
 	}
 	
@@ -42,12 +43,12 @@ public class AlumnoController {
 	
 	@PutMapping
 	public ResponseEntity<Alumno> actualiza(@RequestBody Alumno obj){
-		log.info(">>> actualiza " + obj.getIdAlumno());
+	log.info(">>> actualiza " + obj.getIdAlumno());
 		Optional<Alumno> optAlumnmo =   service.obtienePorId(obj.getIdAlumno());
 		if (optAlumnmo.isPresent()) {
 			return ResponseEntity.ok(service.insertaActualizaAlumno(obj));	
 		}else {
-			log.error(">>> actualiza " + obj.getIdAlumno() + " no encontrado");
+		log.error(">>> actualiza " + obj.getIdAlumno() + " no encontrado");
 			return ResponseEntity.notFound().build();
 		}
 	}
